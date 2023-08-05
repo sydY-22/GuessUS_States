@@ -53,10 +53,8 @@ while game_is_on:
             game_is_on = False
     # exit the game when done.
     if answer_state.lower() == 'exit':
-        for state in states_list:
-            if state not in correct_guesses:
-                # creates a csv of a list of missing states.
-                learn_list.append(state)
-                learn_df = pd.DataFrame(learn_list)
-                states_to_learn = learn_df.to_csv("states_to_learn.csv")
+        # create a list of missed states to learn.
+        learn_list = [state for state in states_list if state not in correct_guesses]
+        learn_df = pd.DataFrame(learn_list)
+        states_to_learn = learn_df.to_csv("states_to_learn.csv")
         game_is_on = False
